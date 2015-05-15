@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<App>
+  <!--<KnownTypes>
+    <Assembly Name="NoteOne_Core, Culture=''">
+      <Type Name="NoteOne_Core.Common.ModelBase"/>
+      <Type Name="NoteOne_Core.Common.BindableBase"/>
+    </Assembly>
+  </KnownTypes>-->
+</App>

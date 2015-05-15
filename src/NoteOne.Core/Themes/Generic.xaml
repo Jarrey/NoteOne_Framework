@@ -1,0 +1,332 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:NoteOne_Core.UI.Common">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///NoteOne_Core/UI.Common/CustomControlStyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="local:ListViewItemOverlay">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ListViewItemOverlay">
+                    <StackPanel Background="Transparent">
+                        <Border Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
+                            <StackPanel Background="Transparent">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{TemplateBinding Title}" IsHitTestVisible="true"
+                                               HorizontalAlignment="Stretch" TextAlignment="Left"
+                                               Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
+                                               Style="{StaticResource TitleTextStyle}"
+                                               Height="50"
+                                               MaxHeight="50"
+                                               Margin="15,0,15,0" />
+                                    <!--Button x:Name="SHOWINFOR_BUTTON" Grid.Column="1" Content="&#xe08d;" FontSize="24" FontFamily="Segoe UI Symbol"
+                                            Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}"
+                                            HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,15,0"
+                                            Style="{StaticResource TextButtonStyle}" 
+                                            Command="{Binding ShowInforCommand, RelativeSource={RelativeSource Mode=TemplatedParent}}"/-->
+                                </Grid>
+                                <ContentPresenter x:Name="PART_CONTENT"
+                                                  IsHitTestVisible="{TemplateBinding IsHitTestVisible}"
+                                                  Opacity="0"
+                                                  Content="{TemplateBinding Content}"
+                                                  Visibility="Collapsed" />
+
+                            </StackPanel>
+                        </Border>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="PointerSates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_CONTENT"
+                                                                       Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Duration="0:0:0.5" From="0" To="1"
+                                                         EnableDependentAnimation="True"
+                                                         Storyboard.TargetName="PART_CONTENT"
+                                                         Storyboard.TargetProperty="Opacity" />
+                                        <!--ObjectAnimationUsingKeyFrames Storyboard.TargetName="SHOWINFOR_BUTTON"
+                                                                       Storyboard.TargetProperty="Content">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="&#xe00d;" />
+                                        </ObjectAnimationUsingKeyFrames-->
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <!-- Expander control -->
+    <Style TargetType="local:Expander">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="TitleForeground" Value="{StaticResource ApplicationForegroundThemeBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:Expander">
+                    <Border CornerRadius="0"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <StackPanel>
+                            <Border x:Name="PART_Title" Background="{TemplateBinding TitleBackground}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock x:Name="PART_TitleLabel" Foreground="{TemplateBinding TitleForeground}"
+                                               Text="{TemplateBinding Title}" Margin="5,5,2,5"
+                                               VerticalAlignment="Center" />
+                                    <Button x:Name="PART_ExpanderButton" Style="{StaticResource TextButtonStyle}"
+                                            Content="&#xe08d;" FontFamily="Segoe UI Symbol" FontSize="24"
+                                            Grid.Column="1" Margin="1,2,7,5"
+                                            Foreground="{TemplateBinding TitleForeground}" />
+                                </Grid>
+                            </Border>
+                            <ContentPresenter x:Name="PART_Content" Visibility="Visible" Opacity="1" />
+                        </StackPanel>
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="PointerSates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="TitlePointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_TitleLabel"
+                                                                       Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{StaticResource ApplicationPointerOverForegroundThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ExpanderButton"
+                                                                       Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{StaticResource ApplicationPointerOverForegroundThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+
+                            <VisualStateGroup x:Name="ExpandSates">
+                                <VisualState x:Name="Expanded">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content"
+                                                                       Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ExpanderButton"
+                                                                       Storyboard.TargetProperty="Content">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="&#xe08d;" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Duration="0:0:0.5" From="0" To="1"
+                                                         EnableDependentAnimation="True"
+                                                         Storyboard.TargetName="PART_Content"
+                                                         Storyboard.TargetProperty="Opacity" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Collapsed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content"
+                                                                       Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ExpanderButton"
+                                                                       Storyboard.TargetProperty="Content">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="&#xe00d;" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content"
+                                                                       Storyboard.TargetProperty="Opacity"
+                                                                       EnableDependentAnimation="True">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="0" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="local:NarrowPane">
+        <Setter Property="Background" Value="#DDFFFFFF" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:NarrowPane">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Background="{TemplateBinding TitleBackground}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="backButton" Style="{StaticResource AppBarButtonStyle}"
+                                    Foreground="{TemplateBinding TitleForeground}" Content="&#xE126;"
+                                    Margin="-10,0,-10,0" VerticalAlignment="Bottom" />
+                            <TextBlock x:Name="title" Text="{TemplateBinding Title}" Grid.Column="1"
+                                       IsHitTestVisible="false" Style="{StaticResource PageSubheaderTextStyle}"
+                                       Foreground="{TemplateBinding TitleForeground}" />
+                        </Grid>
+                        <Grid Grid.Row="1" Background="{TemplateBinding Background}">
+                            <ScrollViewer Padding="20,20,30,20" VerticalScrollMode="Auto"
+                                          VerticalScrollBarVisibility="Auto"
+                                          HorizontalScrollMode="Disabled" ZoomMode="Disabled">
+                                <ContentPresenter x:Name="PART_CONTENT" Content="{TemplateBinding Content}"
+                                                  FontSize="16"
+                                                  Foreground="{TemplateBinding Foreground}" />
+                            </ScrollViewer>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="local:PollImage">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:PollImage">
+                    <Grid x:Name="borderContent"
+                          DataContext="{TemplateBinding CurrentImage}"
+                          Background="{TemplateBinding Background}">
+                        <Image x:Name="imageContent" Source="{Binding ThumbnailImage}" Stretch="UniformToFill"
+                               Visibility="{Binding IsThumbnailImageDownloading, Converter={StaticResource booleanToVisibilityConverter}, ConverterParameter=NEG}">
+                        </Image>
+
+                        <Grid.Projection>
+                            <PlaneProjection x:Name="planeProjection" CenterOfRotationX="0.5" CenterOfRotationY="0.5" />
+                        </Grid.Projection>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <!-- PieProgress control style and template -->
+    <Style TargetType="local:PieProgress">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:PieProgress">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Ellipse Name="backCircle" StrokeThickness="0" Margin="0" Fill="{TemplateBinding PieBackground}"/>
+                            <Path Name="path" StrokeThickness="0" Margin="0" Fill="{TemplateBinding PieForeground}" Stroke="{TemplateBinding Background}"/>
+                            <Ellipse Name="hole" StrokeThickness="0" RenderTransformOrigin="0.5, 0.5" Fill="{TemplateBinding Background}">
+                                <Ellipse.RenderTransform>
+                                    <ScaleTransform ScaleX=".8" ScaleY=".8"/>
+                                </Ellipse.RenderTransform>
+                            </Ellipse>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       FontFamily="{TemplateBinding FontFamily}" Foreground="{TemplateBinding Foreground}"
+                                       FontSize="{TemplateBinding FontSize}" x:Name="label"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    
+    <!-- Template for ColorPicker -->
+    <Style x:Key="CenterThumbStyle" TargetType="Thumb">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="PointerOver"/>
+                                <VisualState x:Name="Pressed"/>
+                                <VisualState x:Name="Disabled"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Unfocused"/>
+                                <VisualState x:Name="Focused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="Background" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}"/>
+                        <Border x:Name="BackgroundPointerOver" BorderBrush="{StaticResource ThumbPointerOverBorderThemeBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{StaticResource ThumbPointerOverBackgroundThemeBrush}" Opacity="0"/>
+                        <Border x:Name="BackgroundPressed" BorderBrush="{StaticResource ThumbPressedBorderThemeBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{StaticResource ThumbPressedBackgroundThemeBrush}" Opacity="0"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:ColorPicker">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate x:Name="colorPickerTemplate" TargetType="local:ColorPicker">
+                    <Viewbox x:Name="clrViewbox" >
+                        <Grid Height="100" Width="100">
+                            <Border x:Name="reference" Height="1" Width="1" BorderBrush="Blue" BorderThickness="0.5"  />
+                            <Ellipse x:Name="finalColor" Fill="Transparent" Height="80" Width="80"/>
+                            <Image Height="100" Width="100" x:Name="colorImg" />
+                            <Canvas Height="100" Width="100">
+                                <Grid x:Name="pointer" Margin="20,20,0,0" RenderTransformOrigin="3.8,3.8">
+                                    <Grid.RenderTransform >
+                                        <CompositeTransform x:Name="rtrnsfrm" Rotation="0"/>
+                                    </Grid.RenderTransform>
+                                    <Ellipse Height="8" Width="8" Stroke="Black" StrokeThickness="1" />
+                                </Grid>
+                            </Canvas>
+                            <Rectangle x:Name="rectColor" Height="40.5" Width="43" RenderTransformOrigin="0.5,0.5" >
+                                <Rectangle.RenderTransform>
+                                    <RotateTransform Angle="45"/>
+                                </Rectangle.RenderTransform>
+
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush>
+                                        <GradientStopCollection>
+                                            <GradientStop x:Name="gdStart" Color="#FFFFFFFF" Offset="0" />
+                                            <GradientStop x:Name="gdStop" Offset="0.7" Color="#FF41834A"/>
+                                            <GradientStop x:Name="gdBlack" Offset="1" Color="Black"/>
+                                        </GradientStopCollection>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            
+                            <Canvas x:Name="innerCanvas" Height="40.5" Width="43" RenderTransformOrigin="0.5,0.5">
+                                <Canvas.RenderTransform>
+                                    <RotateTransform Angle="45" />
+                                </Canvas.RenderTransform>
+                                <Grid Canvas.Left="20" Canvas.Top="20"  x:Name="innerEll">
+                                    <Ellipse Height="8" Width="8" Stroke="White" StrokeThickness="1" />
+                                    <Thumb x:Name="thumbInnerEll"  Style="{StaticResource CenterThumbStyle}" Height="8" Width="8"  HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                </Grid>
+                            </Canvas>
+                        </Grid>
+                    </Viewbox>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
